@@ -4,7 +4,6 @@ import io
 import sys
 import subprocess
 import time
-from sklearn import preprocessing
 from nltk.tokenize import word_tokenize,sent_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
