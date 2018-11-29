@@ -35,11 +35,11 @@ train_encoded_messages   = []								# Contains the messages of the training dat
 train_encoded_message    = []								# This vector contains a single training messasge in encoded form
 test_encoded_messages    = []								# Contains the messages of the test data in one hot encoded form. Each element is a binary vector.
 test_encoded_message     = []								# This vector contains a single test messasge in encoded form
-num_input_layer_neurons  = 0								# It is the number of neurons in the input layer
+num_input_layer_neurons  = 0								# It is the number of neurons in the input layer.
 num_first_layer_neurons  = 100								# It is the number of neurons in the 1st hidden layer
 num_second_layer_neurons = 50								# It is the number of neurons in the 2nd hidden layer
 num_output_layer_neurons = 1								# It is the number of neurons in the output layer
-weight_matrix_1		     = np.zeros(shape = (10,10))		# Weight Matrix between input layer and first hidden layer.Dimensions upadted once number of distinct words have been found out.
+weight_matrix_1		     = np.zeros(shape = (10,10))		# Weight Matrix between input layer and first hidden layer. Dimensions updated once number of distinct words have been found out.
 weight_matrix_2  		 = np.zeros(shape = (100,50))		# Weight Matrix between first hidden layer and second hidden layer
 weight_matrix_3          = np.zeros(shape = (50,1))	 		# Weight Matrix between second hidden layer and output layer
 input_layer_neurons 	 = np.zeros(10)						# Vector for storing the incoming input layer data. Dimensions upadted once number of distinct words have been found out.
@@ -50,7 +50,7 @@ predicted_output 		 = 0								# Output of the neural network
 learning_rate			 = 0.1								# Learning Rate used in backpropagation algorithm
 delta_1					 = np.zeros(100)					# Vector for storing delta values for the first hidden layer
 delta_2					 = np.zeros(50)						# Vector for storing delta values for the second hidden layer
-delta_3					 = np.zeros(1)						# Vector for storing delta values for the third hidden layer
+delta_3					 = np.zeros(1)						# Vector for storing delta values for the output layer.
 X_train = []												# Vector to store number of iterations
 Y_train = []												# Vector to store the in sample error
 X_test  = []												# Vector to store the number of iterations
@@ -267,7 +267,12 @@ def create_neural_network_sigmoid( ):			# Neural Network with sigmoid function a
 
 		for training_message in range(train_data_lines):
 			output 	= forward_pass_sigmoid( training_message )
-
+			
+			if ( output > threshold ):
+				output = 1
+			else:
+				output = 0
+			
 			actual_output    = message_mapping[y_train_data[training_message]]
 			in_sample_error  +=  ( actual_output - output )**2
 
@@ -304,14 +309,17 @@ def create_neural_network_sigmoid( ):			# Neural Network with sigmoid function a
 	plt.ylabel('In Sample Error ')
 	plt.title('Plot for Sigmoid Activation Function')
 	plt.show()
+	
+	
+	plt.plot(X_test,Y_test,marker = 'o',markersize = 5, markerfacecolor = 'red')
+	plt.xlabel('Iteration Number')
+	plt.ylabel('Out Sample Error ')
+	plt.title('Plot for Sigmoid Activation Function')
+	plt.show()
 
 
 
 			
-
-
-
-
 command    = "wc -l " + input_file_name
 proc       = subprocess.Popen(command,stdout=subprocess.PIPE,shell=True)
 (out, err) = proc.communicate()
