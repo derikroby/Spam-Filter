@@ -157,7 +157,7 @@ def forward_pass_tanh( message_number ,testing = False ):
 	# Beginning of forward pass
 
 	if testing:
-		input_layer_neurons = test_encoded_messages[message_number]					# Inputting the encoded messages from the input layer for test data 
+		input_layer_neurons = test_encoded_messages[message_number]				# Inputting the encoded messages from the input layer for test data 
 	else:
 		input_layer_neurons = train_encoded_messages[message_number]				# Inputting the encoded messages from the input layer for training data 
 
@@ -302,7 +302,7 @@ def create_neural_network_tanh( ):			# Neural Network with tanh function as the 
 	plt.plot(X_train,Y_train,marker = 'o',markersize = 5, markerfacecolor = 'red')
 	plt.xlabel('Iteration Number')
 	plt.ylabel('In Sample Error ')
-	plt.title('Plot for Sigmoid Activation Function')
+	plt.title('Plot for Tanh Activation Function')
 	plt.show()
 
 
